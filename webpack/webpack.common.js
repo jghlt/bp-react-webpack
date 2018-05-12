@@ -16,7 +16,7 @@ module.exports = {
   },
   plugins: [
     new CleanWebpackPlugin(
-      ['public/*'],
+      ['public/dist/*'],
       {
         root: path.resolve(__dirname, '..'),
         verbose: true
