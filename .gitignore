@@ -1,0 +1,32 @@
+# noise
+######################
+.DS_Store
+profile
+build/*
+*.mode1
+*.mode1v3
+*.mode2v3
+*.perspective
+*.perspectivev3
+*.pbxuser
+*.xcworkspace
+xcuserdata
+*.log
+.svn
+CVS
+
+# env
+######################
+.env
+
+# sass
+######################
+.sass-cache
+
+# node modules
+######################
+node_modules/*
+
+# dist/build files
+######################
+public/*
