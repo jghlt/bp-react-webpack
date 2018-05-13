@@ -1,4 +1,5 @@
 const path = require('path');
+const config = require('./config');
 const autoprefixer = require('autoprefixer');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
@@ -10,13 +11,15 @@ module.exports = {
     bundle: './src/index.js'
   },
   output: {
-    publicPath: '/dist/',
-    path: path.resolve(__dirname, '../public/dist'),
+    publicPath: `${config.paths.public}`,
+    path: path.resolve(__dirname, `..${config.paths.system}`),
     filename: (isDevelopment) ? '[name].js' : '[name].[chunkhash:8].js',
   },
   plugins: [
     new CleanWebpackPlugin(
-      ['public/dist/*'],
+      [
+        `.${config.paths.system}/*`
+      ],
       {
         root: path.resolve(__dirname, '..'),
         verbose: true
@@ -25,7 +28,11 @@ module.exports = {
     new HtmlWebpackPlugin({
       cache: true,
       filename: '../index.html',
-      template: './src/templates/index.html'
+      template: './src/templates/index.html',
+      minify: (isDevelopment) || {
+        collapseWhitespace: true
+      },
+      inlineSource: (isDevelopment) ? '' : '.(css)$'
     }),
     new MiniCssExtractPlugin({
       filename: (isDevelopment) ? '[name].css' : '[name].[chunkhash:8].css'
