@@ -1,9 +1,9 @@
 module.exports = {
-  name: 'name',
-  description: 'description',
+  name: 'bp-react-webpack',
+  description: '',
   urls: {
-    home: 'http://jghlt.bp-react-webpack/',
-    proxy: 'http://jghlt.bp-react-webpack/'
+    home: 'http://bp.react.webpack/',
+    proxy: 'http://bp.react.webpack/'
   },
   paths: {
     public: '/dist/',
