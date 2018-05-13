@@ -17,12 +17,13 @@ module.exports = {
   },
   plugins: [
     new CleanWebpackPlugin(
-      [
-        `.${config.paths.system}/*`
-      ],
+      ['./public'],
       {
         root: path.resolve(__dirname, '..'),
-        verbose: true
+        verbose: true,
+        exclude: [
+          '.htaccess'
+        ]
       }
     ),
     new HtmlWebpackPlugin({
