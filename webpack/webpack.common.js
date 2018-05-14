@@ -4,6 +4,7 @@ const autoprefixer = require('autoprefixer');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const HtmlWebpackHarddiskPlugin = require('html-webpack-harddisk-plugin');
 const { isDevelopment } = require('webpack-mode');
 
 module.exports = {
@@ -30,11 +31,13 @@ module.exports = {
       cache: true,
       filename: '../index.html',
       template: './src/templates/index.html',
+      alwaysWriteToDisk: (isDevelopment),
       minify: (isDevelopment) || {
         collapseWhitespace: true
       },
       inlineSource: (isDevelopment) ? '' : '.(css)$'
     }),
+    new HtmlWebpackHarddiskPlugin(),
     new MiniCssExtractPlugin({
       filename: (isDevelopment) ? '[name].css' : '[name].[chunkhash:8].css'
     })
