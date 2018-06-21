@@ -9,6 +9,30 @@
     "start": "webpack-dev-server --progress --config ./webpack/webpack.development.js --mode development",
     "build": "webpack --progress --config ./webpack/webpack.production.js --mode production"
   },
+  "project": {
+    "name": "bp-react-webpack",
+    "url": "https://github.com/jghlt/bp-react-webpack",
+    "title": "bp-react-webpack",
+    "description": "Simple structured staring point for react projects, with webpack.",
+    "google" : {
+      "analytics": false,
+      "verification": false
+    },
+    "colors": {
+      "theme": "#101010",
+      "background": "#ffffff"
+    },
+    "paths": {
+      "src": "/src/",
+      "public": "/dist/",
+      "system": "/public/dist/",
+      "proxy": "http://localhost:8080/"
+    },
+    "api": {
+      "development": "https://github.com/jghlt/bp-react-webpack",
+      "production": "https://github.com/jghlt/bp-react-webpack"
+    }
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
