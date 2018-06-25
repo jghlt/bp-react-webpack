@@ -1,12 +1,71 @@
 <!DOCTYPE html>
 <html lang="en_US">
   <head>
-    <meta charset="UTF-8">
+    <base href="/">
+    <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>bp-react-webpack</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+    <title><%= htmlWebpackPlugin.options.project.title %></title>
+    <meta name="description" content="<%= htmlWebpackPlugin.options.project.description %>">
+
+    <meta property="og:type" content="website"/>
+    <meta property="og:site_name" content="<%= htmlWebpackPlugin.options.project.name %>"/>
+    <meta property="og:url" content="<%= htmlWebpackPlugin.options.project.url %>"/>
+    <meta property="og:title" content="<%= htmlWebpackPlugin.options.project.title %>"/>
+    <meta property="og:image" content="<%= htmlWebpackPlugin.options.project.url %><%=require('../icons/og.png')%>"/>
+    <meta property="og:description" content="<%= htmlWebpackPlugin.options.project.description %>"/>
+
+    <meta name="twitter:site" content="<%= htmlWebpackPlugin.options.project.name %>">
+    <meta name="twitter:title" content="<%= htmlWebpackPlugin.options.project.title %>">
+    <meta name="twitter:description" content="<%= htmlWebpackPlugin.options.project.description %>">
+    <meta name="twitter:image" content="<%= htmlWebpackPlugin.options.project.url %><%=require('../icons/og.png')%>">
+    <meta name="twitter:card" content="summary_large_image"/>
+
+    <% for (var file in htmlWebpackPlugin.files.css) { %>
+    <link rel="preload" href="<%= htmlWebpackPlugin.files.css[file] %>" as="style">
+    <% } %>
+    <% for (var file in htmlWebpackPlugin.files.chunks) { %>
+    <link rel="preload" href="<%= htmlWebpackPlugin.files.chunks[file].entry %>" as="script">
+    <% } %>
+    <% for (var file in htmlWebpackPlugin.files.css) { %>
+    <link href="<%= htmlWebpackPlugin.files.css[file] %>" rel="stylesheet">
+    <% } %>
+
+    <script type="application/ld+json">
+      {
+        "@context": "http://schema.org",
+        "@type": "WebSite",
+        "url": "<%= htmlWebpackPlugin.options.project.url %>",
+        "name": "<%= htmlWebpackPlugin.options.project.name %>",
+        "description": "<%= htmlWebpackPlugin.options.project.description %>",
+        "author": {
+          "@type": "Person",
+          "name": "jghlt",
+          "sameAs": [
+            "https://twitter.com/jgh_lt",
+            "https://github.com/jghlt"
+          ]
+        }
+      }
+    </script>
+
   </head>
   <body>
     <div id="root"></div>
+
+    <% for (var chunk in htmlWebpackPlugin.files.chunks) { %>
+    <script async src="<%= htmlWebpackPlugin.files.chunks[chunk].entry %>"></script>
+    <% } %>
+
+    <% if (htmlWebpackPlugin.options.project.google.analytics) { %>
+    <script>
+      window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+      ga('create', '<%= htmlWebpackPlugin.options.project.google.analytics %>', 'auto');
+      ga('send', 'pageview');
+    </script>
+    <script async src="https://www.google-analytics.com/analytics.js" ></script>
+    <% } %>
+
   </body>
 </html>
