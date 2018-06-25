@@ -1,4 +1,4 @@
-const config = require('./config');
+const config = require('../package');
 const merge = require('webpack-merge');
 const common = require('./webpack.common.js');
 const BrowserSyncPlugin = require('browser-sync-webpack-plugin');
@@ -14,8 +14,8 @@ module.exports = merge(common, {
     new BrowserSyncPlugin({
       host: 'localhost',
       port: 3000,
-      proxy: `${config.urls.proxy}`,
-      files: [`${config.paths.system}*`]
+      proxy: `${config.project.paths.proxy}`,
+      files: [`${config.project.paths.system}*`]
     })
   ]
 });

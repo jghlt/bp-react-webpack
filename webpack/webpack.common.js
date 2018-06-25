@@ -1,12 +1,17 @@
 const path = require('path');
 const config = require('../package');
+const webpack = require('webpack');
 const autoprefixer = require('autoprefixer');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const ErrorOverlayPlugin = require('error-overlay-webpack-plugin');
 const HtmlWebpackHarddiskPlugin = require('html-webpack-harddisk-plugin');
 const { isDevelopment } = require('webpack-mode');
+
+const API_URL = {
+  production: JSON.stringify(config.project.api.production),
+  development: JSON.stringify(config.project.api.development)
+};
 
 module.exports = {
   entry: {
@@ -18,7 +23,9 @@ module.exports = {
     filename: (isDevelopment) ? '[name].js' : '[name].[chunkhash:8].js',
   },
   plugins: [
-    new ErrorOverlayPlugin(),
+    new webpack.DefinePlugin({
+      API_URL: API_URL[(isDevelopment) ? 'development' : 'production']
+    }),
     new CleanWebpackPlugin(
       ['./public'],
       {
@@ -88,6 +95,38 @@ module.exports = {
             loader: 'file-loader',
             options: {
               publicPath: './'
+            }
+          }
+        ]
+      },
+      {
+        test: /\.(svg)$/,
+        use: [
+          {
+            loader: 'svgo-loader',
+            options: {
+              plugins: [
+                {
+                  removeDoctype: true
+                },
+                {
+                  removeComments: true
+                },
+                {
+                  removeDimensions: true
+                },
+                {
+                  removeTitle: true
+                },
+                {
+                  convertColors: {
+                    shorthex: false
+                  }
+                },
+                {
+                  convertPathData: false
+                }
+              ]
             }
           }
         ]

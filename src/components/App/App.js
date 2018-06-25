@@ -1,25 +1,20 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import Header from './Header';
+import Masthead from '../Masthead/Masthead';
 
 class App extends React.Component {
-  static propTypes = {
+  constructor(props) {
+    super(props);
+    this.state = {};
   }
 
-  state = {
-  }
   componentDidMount() {
     console.log('App: componentDidMount');
-  }
-
-  componentDidUpdate() {
-    console.log('App: componentDidUpdate');
   }
 
   render() {
     return (
       <div>
-        <Header/>
+        <Masthead />
         <div id="app">
           <h1>App</h1>
         </div>
