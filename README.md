@@ -2,10 +2,19 @@
 Simple structured staring point for react projects, with webpack.
 
 ## Features
-todo
 
-## Requirements
-todo
+* React 16
+* Webpack 4
+* Babel
+* Staging ES Next Features
+* Eslint
+* SASS
 
 ## Installation
-todo
+
+* `git clone git@github.com:jghlt/bp-react-webpack.git`
+* cd bp-react-webpack
+* npm install
+* npm start
+* visit `http://localhost:3000/`
+* npm run build
