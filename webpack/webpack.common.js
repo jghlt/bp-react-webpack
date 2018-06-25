@@ -1,9 +1,10 @@
 const path = require('path');
-const config = require('./config');
+const config = require('../package');
 const autoprefixer = require('autoprefixer');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const ErrorOverlayPlugin = require('error-overlay-webpack-plugin');
 const HtmlWebpackHarddiskPlugin = require('html-webpack-harddisk-plugin');
 const { isDevelopment } = require('webpack-mode');
 
@@ -12,11 +13,12 @@ module.exports = {
     bundle: './src/index.js'
   },
   output: {
-    publicPath: `${config.paths.public}`,
-    path: path.resolve(__dirname, `..${config.paths.system}`),
+    publicPath: `${config.project.paths.public}`,
+    path: path.resolve(__dirname, `..${config.project.paths.system}`),
     filename: (isDevelopment) ? '[name].js' : '[name].[chunkhash:8].js',
   },
   plugins: [
+    new ErrorOverlayPlugin(),
     new CleanWebpackPlugin(
       ['./public'],
       {
@@ -29,13 +31,17 @@ module.exports = {
     ),
     new HtmlWebpackPlugin({
       cache: true,
+      inject: false,
+      project: config.project,
       filename: '../index.html',
-      template: './src/templates/index.html',
+      template: './assets/templates/index.html',
       alwaysWriteToDisk: (isDevelopment),
       minify: (isDevelopment) || {
-        collapseWhitespace: true
-      },
-      inlineSource: (isDevelopment) ? '' : '.(css)$'
+        minifyJS: true,
+        collapseWhitespace: true,
+        collapseInlineTagWhitespace: false,
+        processScripts: ['application/ld+json']
+      }
     }),
     new HtmlWebpackHarddiskPlugin(),
     new MiniCssExtractPlugin({
